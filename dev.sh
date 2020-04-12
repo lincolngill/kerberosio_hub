@@ -6,6 +6,7 @@ VER="0.1"
 NAMESPACE="links10"
 TAG="${NAMESPACE}/${IMGNAME}:${VER}"
 CONTNAME="${IMGNAME}"
+RESTART="--restart unless-stopped"
 
 cd $(dirname $0)
 case $CMD in
@@ -17,7 +18,7 @@ case $CMD in
         ;;
     run)
         set -x
-        docker run --detach --publish 8080:8080 --name ${CONTNAME} ${TAG}
+        docker run ${RESTART} --detach --publish 8080:8080 --name ${CONTNAME} ${TAG}
         docker container list --all
         set +x
         ;;
