@@ -1,9 +1,9 @@
 FROM python:3-slim
-WORKDIR /camviewer
+WORKDIR /src
 # Copy the current directory contents into the container at /app
-ADD . /camviewer
+ADD ./src /src
 RUN pip install -r requirements.txt
 EXPOSE 8080
 # Define environment variable
-ENV NAME World
+ENV FLASK_DEBUG=N
 CMD ["python", "CamViewer.py"]
