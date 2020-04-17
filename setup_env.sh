@@ -48,7 +48,7 @@ function ds_activate () {
 
 # Docker shortcut function ds
 function ds () {
-    CMD="$(echo ${1:-run} | tr '[A-Z]' '[a-z]')"
+    CMD="$(echo ${1:-help} | tr '[A-Z]' '[a-z]')"
 
     case $CMD in
         activate)
@@ -59,14 +59,16 @@ function ds () {
             ;;
         build)
             set -x
-            docker build --tag ${DS_TAG} .
+            docker build --rm --compress --tag ${DS_TAG} .
             docker image list
             set +x
             ;;
         devrun)
             set -x
-                docker run --detach --publish 8080:8080 --volume ${DS_PROJDIR}/src:/src -e FLASK_DEBUG=Y --name ${DS_CONTNAME} ${DS_TAG}
-                docker container list --all
+            docker run --detach --publish 8080:8080 --volume ${DS_PROJDIR}/src:/src -e FLASK_DEBUG=Y --name ${DS_CONTNAME} ${DS_TAG}
+            docker container list --all
+            sleep 2
+            docker logs ${DS_CONTNAME}
             set +x
             ;;
         run)
@@ -75,9 +77,18 @@ function ds () {
             docker container list --all
             set +x
             ;;
+        restart)
+            set -x
+            docker restart ${DS_CONTNAME}
+            docker container list --all
+            sleep 2
+            docker logs ${DS_CONTNAME}
+            set +x
+            ;;
         stop)
             set -x
             docker stop ${DS_CONTNAME}
+            docker wait ${DS_CONTNAME}
             docker rm ${DS_CONTNAME}
             docker container list --all
             set +x
@@ -100,15 +111,23 @@ function ds () {
             docker ps
             set +x
             ;;
+        logs)
+            set -x
+            docker logs ${DS_CONTNAME}
+            set +x
+            ;;
 	    deactivate)
             ds_unset
             ds_show
             deactivate
             ;;
         show) ds_show ;;
+        help)
+            echo "Usage: ds [ activate | build | devrun | run | restart | stop | clean | push | ps | logs | deactivate | help ]"
+            ;;
         *)
             echo "Invalid command arg: $CMD" >&2
-            exit 1
+            return 1
             ;;
     esac
 }

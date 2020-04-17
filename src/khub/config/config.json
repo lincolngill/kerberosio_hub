@@ -1,0 +1,16 @@
+{
+    "site": "Home",
+    "viewport": { "width": 640, "height": 480},
+    "cameras": [
+        {
+            "name": "Camera 1",
+            "location": "Rumpus Room",
+            "url": "http://192.168.1.61:8889/"
+        },
+        {
+            "name": "Camera 2",
+            "location": "Entrance and Stairs",
+            "url": "http://192.168.1.6:8889/"
+        }
+    ]
+}

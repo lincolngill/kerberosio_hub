@@ -6,4 +6,4 @@ RUN pip install -r requirements.txt
 EXPOSE 8080
 # Define environment variable
 ENV FLASK_DEBUG=N
-CMD ["python", "CamViewer.py"]
+CMD ["python", "run_khub.py"]

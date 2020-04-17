@@ -1,2 +1,4 @@
 Flask
 waitress
+Flask-SQLAlchemy
+flask-wtf
