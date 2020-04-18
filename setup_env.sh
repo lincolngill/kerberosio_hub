@@ -67,7 +67,7 @@ function ds () {
             set -x
             docker run --detach --publish 8080:8080 --volume ${DS_PROJDIR}/src:/src -e FLASK_DEBUG=Y --name ${DS_CONTNAME} ${DS_TAG}
             docker container list --all
-            sleep 2
+            sleep 1
             docker logs ${DS_CONTNAME}
             set +x
             ;;
@@ -81,7 +81,7 @@ function ds () {
             set -x
             docker restart ${DS_CONTNAME}
             docker container list --all
-            sleep 2
+            sleep 1
             docker logs ${DS_CONTNAME}
             set +x
             ;;

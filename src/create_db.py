@@ -5,7 +5,8 @@ from khub.models import User, CameraGroup, Camera
 db.drop_all()
 db.create_all()
 
-db.session.add(User(username='links', email='lincolngill@gmail.com', password='l00king'))
+'''
+db.session.add(User(username='links', email='dude@gmail.com', password='password'))
 
 cg = CameraGroup(name='Home', dashboard_route='/home')
 db.session.add(cg)
@@ -21,3 +22,4 @@ cg = CameraGroup.query.filter_by(name='Home').first()
 print(cg)
 for c in cg.cameras:
     print(c)
+'''

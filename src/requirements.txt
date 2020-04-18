@@ -2,3 +2,5 @@ Flask
 waitress
 Flask-SQLAlchemy
 flask-wtf
+Flask-Bcrypt
+Flask-Login
