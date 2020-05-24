@@ -7,9 +7,10 @@
 function ds_set () {
     # Environment variables with default values based on project directory
     DS_PROJDIR="${DS_PROJDIR:-$(cd $(dirname $BASH_SOURCE); pwd)}"
+    GIT_BRANCH=$(cd "${DS_PROJDIR}"; git branch --show-current)
     DS_PROJ="${DS_PROJ:-$(basename ${DS_PROJDIR})}"
     DS_IMGNAME="${DS_IMGNAME:-$DS_PROJ}"
-    DS_VER="${DS_VER:-0.2}"
+    DS_VER="${DS_VER:-${GIT_BRANCH}}"
     DS_NAMESPACE="${DS_NAMESPACE:-links10}"
     DS_TAG="${DS_TAG:-${DS_NAMESPACE}/${DS_IMGNAME}}"
     DS_CONTNAME="${DS_CONTNAME:-${DS_IMGNAME}}"
@@ -22,7 +23,7 @@ echo "Docker Shortcut (ds) command setup"
 function ds_show () {
     for V in DS_PROJ DS_PROJDIR DS_IMGNAME DS_VER DS_NAMESPACE DS_TAG DS_CONTNAME DS_RESTART
     do
- 	printf "%14s: %s\n" $V "${!V}"
+ 	    printf "%14s: %s\n" $V "${!V}"
     done
 }
 
